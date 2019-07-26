@@ -1,0 +1,7 @@
+[core]
+	excludesFile = ~/.gitignore
+[user]
+	name = Gourav Chawla
+	email = gouravchawla@live.com
+[credential]
+	helper = cache
