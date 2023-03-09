@@ -2,7 +2,7 @@
 
 name: vitesse
 root: ~/Workspace/Simfoni/projects/Vitesse
-pre: export DJANGO_SETTINGS_MODULE='vitesse_prod.settings.local'
+pre: export DJANGO_SETTINGS_MODULE='config.settings.local';export DJANGO_READ_DOT_ENV_FILE=1
 
 # Optional tmux socket
 # socket_name: foo
@@ -34,5 +34,5 @@ windows:
       panes:
         - python manage.py shell
         - python manage.py runserver
-        - sudo systemctl start postgresql-11 && echo "GIT me! Get it? :D :D"
+        - echo "GIT me! Get it? :D :D"
   - htop: htop

@@ -1,157 +1,84 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/gouravchawla/.oh-my-zsh
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Fixes colors not showing properly in `vim` inside `tmux`
-# Reference: https://askubuntu.com/questions/125526/vim-in-tmux-display-wrong-colors
+# # Reference: https://askubuntu.com/questions/125526/vim-in-tmux-display-wrong-colors
 export TERM="xterm-256color"
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# To show correct powerline symbols
+export LC_ALL=en_IN.UTF-8
+export LANG=en_IN.UTF-8
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="spaceship"
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  tmux
-  tmuxinator
-)
-
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+source ~/antigen.zsh
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle tmux
+antigen bundle tmuxinator
+antigen bundle command-not-found
+antigen bundle rand-quote 
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle jeffreytse/zsh-vi-mode
+
+# Tell Antigen that you're done.
+antigen apply
 
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='vim'
- fi
+export EDITOR='vim'
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
+# Aliases
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias tmuxconfig="vim ~/.tmux.conf"
 
-# For Solr
-SOLR_ROOT="/home/gouravchawla/Workspace/Contify_Office/solr"
-alias startsolr="$SOLR_ROOT/solr-7.1.0/bin/solr start -p 8983 -s $SOLR_ROOT/solrconf"
-alias stopsolr="$SOLR_ROOT/solr-7.1.0/bin/solr stop -p 8983"
-
 # For Django
-alias djcontify="python manage.py runserver"
-alias djadmin="python manage.py runserver 8001"
+alias djServer="python manage.py runserver"
 
 # For Docker
 alias docker='sudo docker'
 alias docker-compose='sudo docker-compose'
 
+# For AWS SSM
+alias sshSimfonianalyticsProd="aws ssm start-session --target 'i-0ebf2bbf6b474c569' --region 'us-east-1'"
+alias sshSimfoniAnalyticsDev="aws ssm start-session --target 'i-01d853ae5211dec67' --region 'eu-west-1'"
+alias sshSourceforceDev="aws ssm start-session --target 'i-0eef6d1c2f2e131ea' --region 'eu-west-2'"
+alias sshSourceforceProd="aws ssm start-session --target 'i-090270bd272480999' --region 'eu-west-2'"
+alias sshVitessProd="aws ssm start-session --target i-03c1d05d5c293e921 --region 'eu-west-2'"
+alias sshVitessDev="aws ssm start-session --target i-034dd618ec4dcb1c0 --region 'eu-west-2'"
+alias sshTools="aws ssm start-session --target 'i-0e0be520ca4df2136' --region 'eu-west-1'"
+alias sshVitesseStage="aws ssm start-session --target i-076ad37c34cbeda31 --region 'eu-west-2'"
+alias sshNewVitesseStage="aws ssm start-session --target i-0ca7945f6de86f6c7 --region 'eu-west-2'"
+alias sshNewVitesseDev="aws ssm start-session --target i-0f5ee21639c2c4a84 --region 'eu-west-2'"
+alias sshTempVitesseCelery="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/london-generic.pem ubuntu@18.170.102.244"
+alias sshVitesseDemoWeb0="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/new_keys_26102021.pem ubuntu@172.31.59.203"
+alias sshVitesseDemoCelery0="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/new_keys_26102021.pem ubuntu@172.31.68.78"
+
+# New Infra
+alias sshVitesseDevBastion="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/automationterraform ubuntu@10.100.0.63"
+alias sshVitesseProdBastion="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/automationterraform ubuntu@10.1.0.223"
+alias sshVitesseStageBastion="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/automationterraform ubuntu@10.101.0.166"
+alias sshVitesseDemoBastion="ssh -i /home/dotgourav/Workspace/Simfoni/DevOps/automationterraform ubuntu@3.238.78.89"
+
 # For Tmuxinator completion
-source ~/.bin/tmuxinator.zsh
+alias mux='tmuxinator'
 
-# KEEP PATH MANIPULATION AT THE END
-# For virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/bin/virtualenvwrapper.sh
-
-# For PyCharm
-export PATH="/opt/pycharm-2017.3/bin:$PATH"
-
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/gouravchawla/Workspace/Contify_Office/Requirements/contify_chatbot/google-cloud-sdk/path.zsh.inc' ]; then source '/home/gouravchawla/Workspace/Contify_Office/Requirements/contify_chatbot/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/gouravchawla/Workspace/Contify_Office/Requirements/contify_chatbot/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/gouravchawla/Workspace/Contify_Office/Requirements/contify_chatbot/google-cloud-sdk/completion.zsh.inc'; fi
-
-export http_proxy=''
-export https_proxy=''
-export ftp_proxy=''
-export socks_proxy=''
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# KEEP IT IN THE VERY END
-# For Pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-fpath=($fpath "/home/gouravchawla/.zfunctions")
-
-
-# Linux brew
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship
